@@ -1,15 +1,21 @@
-import asyncio
-import telegram
+from telegram_commands import start, cardDeals
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from telegram import Update
 from requests_html import HTMLSession
-from const import TELEGRAM_BOT_API_TOKEN, CHAT_IDS_DEV, CHAT_IDS
-
-
-async def main():
-    bot = telegram.Bot(TELEGRAM_BOT_API_TOKEN)
-    async with bot:
-        for chat_id in CHAT_IDS_DEV:
-            await bot.send_message(text='Testing message', chat_id=chat_id)
-
+from dotenv import load_dotenv
+import os
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    load_dotenv()
+    application = ApplicationBuilder().token(
+        os.environ['TELEGRAM_BOT_API_TOKEN']).build()
+
+    start_handler = CommandHandler('start', start)
+    display_card_deals_handler = CommandHandler('hitmeup', cardDeals)
+
+    application.add_handlers(handlers={
+        0: [start_handler],
+        1: [display_card_deals_handler]
+    })
+
+    application.run_polling()
