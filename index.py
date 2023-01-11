@@ -1,4 +1,4 @@
-from telegram_commands import start, cardDeals
+from telegram_bot.telegram_commands import start, cardDeals
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 from telegram import Update
 from requests_html import HTMLSession
@@ -17,5 +17,5 @@ if __name__ == '__main__':
         0: [start_handler],
         1: [display_card_deals_handler]
     })
-
+    print('Running CardAuntyBot!')
     application.run_polling()

@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from message_templates import start_command_message
+from telegram_bot.message_templates import start_command_message
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
